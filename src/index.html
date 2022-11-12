@@ -315,7 +315,7 @@
       json.achievements[getName(match[1])] = match[2] + '%'
     }
 
-    json.showGuidelines = file.match(/<k>showSongMarkers<\/k><([tf]) \/>/)[1] == 't'
+    try { json.showGuidelines = file.match(/<k>showSongMarkers<\/k><([tf]) \/>/)[1] == 't' } catch { json.showGuidelines = false }
     try { json.showProgressBar = file.match(/<k>showProgressBar<\/k><([tf]) \/>/)[1] == 't' } catch { json.showProgressBar = false }
     json.clickedIconKit = file.match(/<k>clickedGarage<\/k><([tf]) \/>/)[1] == 't'
     json.clickedEditor = file.match(/<k>clickedEditor<\/k><([tf]) \/>/)[1] == 't'
