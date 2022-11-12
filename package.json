@@ -1,0 +1,40 @@
+{
+  "name": "gmdsaveexplorer",
+  "productName": "gmdsaveexplorer",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder build -w"
+  },
+  "keywords": [],
+  "author": {
+    "name": "KontrollFreek",
+    "email": "williambush357@gmail.com"
+  },
+  "build": {
+    "appId": "dev.kontroll.gmdsaveexplorer",
+    "win": {
+      "target": "portable"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "linux": {
+      "target": "deb"
+    },
+    "portable": {
+      "unicode": false,
+      "artifactName": "SaveExplorer.exe"
+    }
+  },
+  "license": "MIT",
+  "dependencies": {
+    "pako": "^2.1.0"
+  },
+  "devDependencies": {
+    "electron": "^19.0.10",
+    "electron-builder": "^23.3.3"
+  }
+}
