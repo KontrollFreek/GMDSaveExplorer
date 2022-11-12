@@ -1,0 +1,25 @@
+name: GMDSaveExplorer Compiler
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      - name: package
+        uses: polyseam/get-version-from-package-json@1.0.0
+        id: package
+        with:
+          path-to-file: './package.json'
+      - run: npm install
+      - run: npm build
+      - uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./dist/SaveExplorer.exe
+          asset_name: SaveExplorer
+          tag: v${{ steps.get-version-from-package-json.outputs.version }}
+          overwrite: true
