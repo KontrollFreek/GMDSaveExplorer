@@ -1,5 +1,5 @@
 name: GMDSaveExplorer Compiler
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: Compile GMDSaveExplorer
 on: [push]
 jobs:
   Explore-GitHub-Actions:
@@ -13,7 +13,7 @@ jobs:
         uses: polyseam/get-version-from-package-json@1.0.0
         id: package
         with:
-          path-to-file: './package.json'
+          path-to-package-json: './package.json'
       - run: npm install
       - run: npm build
       - uses: svenstaro/upload-release-action@v2
