@@ -202,7 +202,7 @@
           teleportOffset: parseInt(e[54]),
           teleportEase: e[55] == '1',
           activateGroup: e[56] == '1',
-          groupIDs: e[57].split('.').map(e => parseInt(e)),
+          groupIDs: e[57],
           lockPlayerX: e[58] == '1',
           lockPlayerY: e[59] == '1',
           copyOpacity: e[60] == '1',
@@ -277,6 +277,7 @@
         if (e[51] == undefined) delete levelstring.targedGroupID
         if (e[52] == undefined) delete levelstring.pulseTargetType
         if (e[54] == undefined) delete levelstring.teleportOffset
+        if (e[57] != undefined) levelstring.groupIDs = e[57].split('.').map(e => parseInt(e))
         if (e[61] == undefined) delete levelstring.editorLayer2
         if (e[63] == undefined) delete levelstring.spawnDelay
         if (e[68] == undefined) delete levelstring.degrees
