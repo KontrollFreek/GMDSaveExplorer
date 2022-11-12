@@ -20,6 +20,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./dist/SaveExplorer.exe
-          asset_name: SaveExplorer
-          tag: v${{ steps.get-version-from-package-json.outputs.version }}
+          asset_name: SaveExplorer.exe
+          tag: v$steps.get-version-from-package-json.outputs.version
           overwrite: true
