@@ -44,7 +44,7 @@
  
   fs.mkdir(savepath, { recursive: true }, err => { if (err) throw err })
 
-  fs.readFile(`${process.env.LOCALAPPDATA}/Catsters GDPS/CCGameManager.dat`, null, (err, data) => {
+  fs.readFile(`${process.env.LOCALAPPDATA}/GeometryDash/CCGameManager.dat`, null, (err, data) => {
     if (err) throw err + ' (Do you have the game installed?)'
 
     file = decodeSave(data)
