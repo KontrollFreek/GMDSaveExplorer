@@ -1,7 +1,7 @@
 {
   "name": "gmdsaveexplorer",
   "productName": "gmdsaveexplorer",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "A tool for viewing and editing your GD savefiles",
   "main": "src/index.js",
   "scripts": {
