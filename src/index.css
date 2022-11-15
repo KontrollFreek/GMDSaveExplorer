@@ -11,7 +11,15 @@ body {
 #stats div {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 #stats div span {
   margin: 5px 0px;
+}
+
+.tooltip {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  opacity: 0;
 }/*# sourceMappingURL=index.css.map */

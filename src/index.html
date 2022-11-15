@@ -73,6 +73,19 @@
         for (let b = 1; b < document.getElementById('stats').children[a].children.length; b++) {
           let stat = document.getElementById('stats').children[a].children[b]
           stat.innerText = `${json.stats[stat.dataset.stat]} ${stat.dataset.popupText}`
+          let rect = stat.getBoundingClientRect()
+          let node = document.body.appendChild(document.createElement('div'))
+          node.classList.add('tooltip')
+          node.setAttribute('id', stat.dataset.stat)
+          node.innerText = stat.dataset.popupText
+          document.getElementById(stat.dataset.stat).style.top = ((rect.y + window.scrollY) - 21) + 'px'
+          document.getElementById(stat.dataset.stat).style.left = (((rect.width / 2) + rect.x)) + 'px'
+          stat.addEventListener('mouseover', e => {
+            document.getElementById(e.target.dataset.stat).style.opacity = '1'
+          })
+          stat.addEventListener('mouseleave', e => {
+            document.getElementById(e.target.dataset.stat).style.opacity = '0'
+          })
         }
       }
     })
