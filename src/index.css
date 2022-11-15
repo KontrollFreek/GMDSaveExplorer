@@ -18,8 +18,13 @@ body {
 }
 
 .tooltip {
+  padding: 2px 6px;
+  background: #444;
+  z-index: 1;
   position: absolute;
   top: 0px;
   left: 0px;
   opacity: 0;
-}/*# sourceMappingURL=index.css.map */
+}
+
+/*# sourceMappingURL=index.css.map */
