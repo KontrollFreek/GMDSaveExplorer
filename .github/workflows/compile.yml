@@ -2,24 +2,35 @@ name: GMDSaveExplorer Compiler
 run-name: Compile GMDSaveExplorer
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  Compile:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set Up Node
+        uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-      - name: package
-        uses: polyseam/get-version-from-package-json@1.0.0
-        id: package
+
+      - name: Get App Version
+        id: version
+        uses: notiz-dev/github-action-json-property@v0.2.0
         with:
-          path-to-package-json: './package.json'
-      - run: npm install
-      - run: npm run build
-      - uses: svenstaro/upload-release-action@v2
+          path: package.json
+          prop_path: version
+
+      - name: Install Packages
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./dist/SaveExplorer.exe
-          asset_name: SaveExplorer.exe
-          tag: v${{ steps.package.outputs.version }}
-          overwrite: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            ./dist/SaveExplorer.exe
+          tag_name: v${{ steps.version.outputs.prop }}
+          prerelease: true
