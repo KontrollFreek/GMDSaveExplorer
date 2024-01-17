@@ -1,44 +1,45 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>GMDSaveExplorer</title>
-    <link rel="stylesheet" href="index.css" />
-  </head>
 
-  <body>
-    <div class="tooltip"></div>
-    <div id="stats">
-      <div>
-        <h1>Basic Stats</h1>
-        <span data-stat="stars" data-popup-text="Stars"></span>
-        <span data-stat="diamonds" data-popup-text="Diamonds"></span>
-        <span data-stat="mapPacks" data-popup-text="Completed Map Packs"></span>
-        <span data-stat="jumps" data-popup-text="Total Jumps"></span>
-        <span data-stat="attempts" data-popup-text="Total Attempts"></span>
-        <span data-stat="destroyedPlayers" data-popup-text="Destroyed Players in Menu"></span>
-      </div>
-      <div>
-        <h1>Coins</h1>
-        <span data-stat="secretCoins" data-popup-text="Secret Coins"></span>
-        <span data-stat="userCoins" data-popup-text="User Coins"></span>
-      </div>
-      <div>
-        <h1>Currencies</h1>
-        <span data-stat="currentOrbs" data-popup-text="Current Orbs"></span>
-        <span data-stat="totalOrbs" data-popup-text="Total Orbs"></span>
-        <span data-stat="demonKeys" data-popup-text="Total Demon Keys"></span>
-      </div>
-      <div>
-        <h1>Shards</h1>
-        <span data-stat="fireShards" data-popup-text="Fire Shards"></span>
-        <span data-stat="iceShards" data-popup-text="Ice Shards"></span>
-        <span data-stat="poisonShards" data-popup-text="Poison Shards"></span>
-        <span data-stat="shadowShards" data-popup-text="Shadow Shards"></span>
-        <span data-stat="lavaShards" data-popup-text="Lava Shards"></span>
-        <span data-stat="bonusShards" data-popup-text="Bonus Shards"></span>
-      </div>
-      <!-- <div>
+<head>
+  <meta charset="UTF-8" />
+  <title>GMDSaveExplorer</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+  <!-- <div class="tooltip"></div>
+  <div id="stats">
+    <div>
+      <h1>Basic Stats</h1>
+      <span data-stat="stars" data-popup-text="Stars"></span>
+      <span data-stat="diamonds" data-popup-text="Diamonds"></span>
+      <span data-stat="mapPacks" data-popup-text="Completed Map Packs"></span>
+      <span data-stat="jumps" data-popup-text="Total Jumps"></span>
+      <span data-stat="attempts" data-popup-text="Total Attempts"></span>
+      <span data-stat="destroyedPlayers" data-popup-text="Destroyed Players in Menu"></span>
+    </div>
+    <div>
+      <h1>Coins</h1>
+      <span data-stat="secretCoins" data-popup-text="Secret Coins"></span>
+      <span data-stat="userCoins" data-popup-text="User Coins"></span>
+    </div>
+    <div>
+      <h1>Currencies</h1>
+      <span data-stat="currentOrbs" data-popup-text="Current Orbs"></span>
+      <span data-stat="totalOrbs" data-popup-text="Total Orbs"></span>
+      <span data-stat="demonKeys" data-popup-text="Total Demon Keys"></span>
+    </div>
+    <div>
+      <h1>Shards</h1>
+      <span data-stat="fireShards" data-popup-text="Fire Shards"></span>
+      <span data-stat="iceShards" data-popup-text="Ice Shards"></span>
+      <span data-stat="poisonShards" data-popup-text="Poison Shards"></span>
+      <span data-stat="shadowShards" data-popup-text="Shadow Shards"></span>
+      <span data-stat="lavaShards" data-popup-text="Lava Shards"></span>
+      <span data-stat="bonusShards" data-popup-text="Bonus Shards"></span>
+    </div>
+    <div>
         <h1>Online Levels</h1>
       </div>
       <div>
@@ -58,42 +59,45 @@
       </div>
       <div>
         <h1>Account</h1>
-      </div> -->
-    </div>
-  </body>
+      </div>
+  </div> -->
+  <pre><code id="code" style="white-space: pre-wrap; word-wrap: break-word"></code></pre>
+</body>
 
-  <script>
-    const { parseSave } = require("./parse")
-    let file, json
+<script>
+  const { parseSave } = require('./parse')
+  const { highlight } = require('./highlight')
+  let file, json
 
-    parseSave.then((data) => {
-      file = data.file
-      json = data.json
+  parseSave.then((data) => {
+    file = data.file
+    json = data.json
 
-      for (let a = 0; a < document.getElementById('stats').children.length; a++) {
-        for (let b = 1; b < document.getElementById('stats').children[a].children.length; b++) {
-          let stat = document.getElementById('stats').children[a].children[b]
-          stat.innerText = `${json.stats[stat.dataset.stat]} ${stat.dataset.popupText}`
-          let rect = stat.getBoundingClientRect()
-          let tooltip = document.getElementsByClassName('tooltip')[0]
-          function checkMouse(e) {
-              tooltip.style.top = (e.clientY - (tooltip.offsetHeight + 10) + window.scrollY) + 'px'
-            tooltip.style.left = (e.clientX - (tooltip.offsetWidth / 2) + window.scrollX) + 'px'
-            if (tooltip.getBoundingClientRect().left <= 1) tooltip.style.left = '0px'
-          }
-          document.addEventListener('mousemove', e => checkMouse(e))
-          document.addEventListener('mousewheel', e => checkMouse(e))
-          stat.addEventListener('mouseover', e => {
-            tooltip.style.display = 'block'
-            tooltip.style.opacity = '1'
-            tooltip.innerText = e.target.dataset.popupText
-          })
-          stat.addEventListener('mouseleave', () => {
-            tooltip.style.opacity = '0'
-            tooltip.style.display = 'none'
-          })
-        }
-      }
-    })
-  </script>
+    document.getElementById('code').innerHTML = highlight(JSON.stringify(json, undefined, 4))
+
+    // for (let a = 0; a < document.getElementById('stats').children.length; a++) {
+    //   for (let b = 1; b < document.getElementById('stats').children[a].children.length; b++) {
+    //     let stat = document.getElementById('stats').children[a].children[b]
+    //     stat.innerText = json.stats[stat.dataset.stat]
+    //     let tooltip = document.getElementsByClassName('tooltip')[0]
+    //     function checkMouse(e) {
+    //       tooltip.style.top = (e.clientY - (tooltip.offsetHeight + 6) + window.scrollY) + 'px'
+    //       tooltip.style.left = (e.clientX - (tooltip.offsetWidth / 2) + window.scrollX) + 'px'
+    //     }
+    //     document.addEventListener('mousemove', e => checkMouse(e))
+    //     document.addEventListener('mousewheel', e => checkMouse(e))
+    //     stat.addEventListener('mouseover', e => {
+    //       tooltip.style.display = 'block'
+    //       tooltip.style.opacity = '1'
+    //       tooltip.innerText = e.target.dataset.popupText
+    //     })
+    //     stat.addEventListener('mouseleave', () => {
+    //       tooltip.style.opacity = '0'
+    //       tooltip.style.display = 'none'
+    //     })
+    //   }
+    // }
+  })
+</script>
+
 </html>
